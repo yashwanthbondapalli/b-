@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Back to Base | Where the past inspires the future</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Rajdhani:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CSS VARIABLES & GLOBAL STYLES --- */
+        :root {
+            --bg-color: #000000;
+            --text-color: #E0E0E0;
+            --ancient-color: #D2B48C; /* Warm Stone Beige */
+            --modern-color: #00F6FF;  /* Electric Teal/Blue */
+            --glow-color: rgba(0, 246, 255, 0.7);
+
+            --font-ancient: 'Cinzel', serif; /* Engraved, retro font */
+            --font-modern: 'Rajdhani', sans-serif; /* Sleek, futuristic font */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-modern);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            color: var(--ancient-color);
+            font-family: var(--font-ancient);
+            text-align: center;
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+        }
+
+        p {
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        section {
+            padding: 100px 5%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- KEYFRAMES FOR ANIMATIONS --- */
+        @keyframes subtle-glow {
+            0%, 100% {
+                text-shadow: 0 0 4px var(--glow-color);
+            }
+            50% {
+                text-shadow: 0 0 10px var(--glow-color);
+            }
+        }
+
+        @keyframes timeline-pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 var(--glow-color);
+            }
+            50% {
+                transform: scale(1.1);
+                box-shadow: 0 0 10px 5px rgba(0, 246, 255, 0.3);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 var(--glow-color);
+            }
+        }
+        
+        @keyframes fade-in {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        section {
+            animation: fade-in 1s ease-out forwards;
+        }
+
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden; 
+        }
+
+        #hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: cover;
+            /* z-index: -1; <-- THIS WAS THE PROBLEM */
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); 
+            z-index: 1; /* FIXED: Set to 1 */
+        }
+
+        .hero-content {
+            position: relative; 
+            z-index: 2; /* FIXED: Set to 2 */
+        }
+
+        .hero-logo {
+            font-size: 5rem;
+            font-family: var(--font-ancient);
+            color: var(--ancient-color);
+            letter-spacing: 5px;
+            margin-bottom: 1rem;
+        }
+
+        .hero-logo .modern {
+            font-family: var(--font-modern);
+            color: var(--modern-color);
+            animation: subtle-glow 3s infinite ease-in-out;
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 35px;
+            border: 2px solid var(--modern-color);
+            color: var(--modern-color);
+            background-color: transparent;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 5px var(--glow-color);
+        }
+
+        .cta-button:hover {
+            background-color: var(--modern-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 25px var(--glow-color);
+        }
+
+        /* --- ABOUT SECTION --- */
+        #about .container {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .about-left, .about-right {
+            flex: 1;
+        }
+        
+        .about-left {
+            background: url('https://www.transparenttextures.com/patterns/rocky-wall.png');
+            padding: 2rem;
+            border: 1px solid var(--ancient-color);
+        }
+
+        .about-right {
+            padding-left: 2rem;
+            border-left: 2px solid var(--modern-color);
+            box-shadow: -15px 0 25px -20px var(--glow-color);
+        }
+        
+        .about-right h3 {
+            font-family: var(--font-ancient);
+            color: var(--ancient-color);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+
+        /* --- SPEAKERS & PERFORMERS SECTION --- */
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .speaker-card {
+            background-color: #111;
+            border: 1px solid #333;
+            text-align: center;
+            padding: 2px; 
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .speaker-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, var(--glow-color), transparent 30%);
+            animation: rotate 4s linear infinite;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .speaker-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+        
+        .speaker-card:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .speaker-card-content {
+            background: #111;
+            position: relative;
+            z-index: 1;
+            padding: 1.8rem;
+        }
+
+        .speaker-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 3px solid var(--ancient-color);
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+        }
+        
+        .speaker-card h3 {
+            font-size: 1.5rem;
+            color: var(--modern-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .speaker-card p {
+            color: var(--ancient-color);
+            font-family: var(--font-ancient);
+        }
+
+        /* --- EVENT TIMELINE SECTION --- */
+        #timeline {
+             background: 
+                radial-gradient(ellipse at top, rgba(0, 246, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom, rgba(210, 180, 140, 0.05) 0%, transparent 50%);
+        }
+
+        .timeline-container {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(var(--ancient-color), var(--modern-color));
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background-color: var(--bg-color);
+            border: 4px solid var(--modern-color);
+            top: 25px;
+            border-radius: 50%;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover::after {
+            animation: timeline-pulse 1s ease-in-out;
+        }
+
+        .left {
+            left: 0;
+            text-align: right;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .right::after {
+            left: -10px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background: #111;
+            border: 1px solid #444;
+            position: relative;
+            border-radius: 6px;
+        }
+        
+        .timeline-content h3 {
+            color: var(--ancient-color);
+            font-family: var(--font-ancient);
+        }
+
+        .timeline-content .time {
+            font-weight: bold;
+            color: var(--modern-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- REGISTRATION SECTION --- */
+        .registration-form {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            background-color: transparent;
+            border: 2px solid var(--ancient-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            font-family: var(--font-modern);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--modern-color);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: #050505;
+            padding: 40px 5%;
+            text-align: center;
+        }
+
+        .social-links a {
+            color: var(--modern-color);
+            margin: 0 15px;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: text-shadow 0.3s ease;
+        }
+
+        .social-links a:hover {
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+
+        .footer-text {
+            margin-top: 1.5rem;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .footer-text span {
+            color: var(--ancient-color);
+            font-family: var(--font-ancient);
+        }
+
+        /* --- RESPONSIVE DESIGN --- */
+        @media (max-width: 992px) {
+             h2 { font-size: 2.2rem; }
+            .hero-logo { font-size: 4rem; }
+        }
+
+        @media (max-width: 768px) {
+            section { padding: 60px 5%; }
+            h2 { font-size: 2rem; }
+            .hero-logo { font-size: 3rem; }
+            .hero-tagline { font-size: 1.2rem; }
+
+            #about .container {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .about-right {
+                border-left: none;
+                border-top: 2px solid var(--modern-color);
+                box-shadow: 0 -15px 25px -20px var(--glow-color);
+                padding-left: 0;
+                padding-top: 2rem;
+            }
+
+            /* Timeline collapse into a single column */
+            .timeline-container::after {
+                left: 20px;
+            }
+            .timeline-item {
+                width: 100%;
+                padding-left: 60px;
+                padding-right: 15px;
+            }
+            .timeline-item.left, .timeline-item.right {
+                left: 0;
+                text-align: left;
+            }
+            .timeline-item::after {
+                left: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-logo { font-size: 2.5rem; letter-spacing: 2px; }
+            p { font-size: 1rem; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header id="hero" class="hero">
+        <video autoplay loop muted playsinline id="hero-video">
+            <source src="b2bvideo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <h1 class="hero-logo">Back <span class="modern">to Base</span></h1>
+            <p class="hero-tagline">Where the past inspires the future.</p>
+            <a href="#register" class="cta-button">Register Now</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="about">
+            <div class="container">
+                <div class="about-left">
+                    <h3>Reviving Roots.</h3>
+                    <p>We delve into the foundational principles of craftsmanship and creativity that have shaped human progress for millennia. "Back to Base" is a celebration of the timeless techniques and raw ingenuity that form the bedrock of all innovation.</p>
+                </div>
+                <div class="about-right">
+                    <h3>Reimagining Innovation.</h3>
+                    <p>We catapult those core ideas into the future, exploring how ancient wisdom fuels modern technology, performance, and digital artistry. This event is the bridge between the carved stone and the glowing circuit, where quality meets evolution.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="speakers">
+            <h2 class="section-title">Speakers & Performers</h2>
+            <div class="container speakers-grid">
+                <div class="speaker-card">
+                    <div class="speaker-card-content">
+                        <img src="https://i.pravatar.cc/150?u=founder1" alt="Event Founder">
+                        <h3>Elara Vance</h3>
+                        <p>Founder & Futurist</p>
+                    </div>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-card-content">
+                        <img src="https://i.pravatar.cc/150?u=tech1" alt="Tech Speaker">
+                        <h3>Dr. Kenji Tanaka</h3>
+                        <p>AI Ethicist</p>
+                    </div>
+                </div>
+                <div class="speaker-card">
+                    <div class="speaker-card-content">
+                        <img src="https://i.pravatar.cc/150?u=artist1" alt="Creative Performer">
+                        <h3>NOVA</h3>
+                        <p>Digital Light Artist</p>
+                    </div>
+                </div>
+                 <div class="speaker-card">
+                    <div class="speaker-card-content">
+                        <img src="https://i.pravatar.cc/150?u=crafter1" alt="Artisan">
+                        <h3>Maria Flores</h3>
+                        <p>Master Artisan</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="timeline">
+            <h2 class="section-title">The Journey</h2>
+            <div class="timeline-container">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="time">Phase 1: Foundation</div>
+                        <h3>The Genesis Keynote</h3>
+                        <p>Exploring ancient engineering marvels and their mathematical purity.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="time">Phase 2: Fusion</div>
+                        <h3>Artisan Workshops</h3>
+                        <p>Hands-on sessions blending traditional crafts with modern tools.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <div class="time">Phase 3: Evolution</div>
+                        <h3>Tech Talks & Demos</h3>
+                        <p>Presentations on quantum computing, generative art, and sustainable tech.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <div class="time">Phase 4: Apex</div>
+                        <h3>The Apex Performance</h3>
+                        <p>A stunning audio-visual show by NOVA, merging light, sound, and story.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="register">
+            <h2 class="section-title">Secure Your Place</h2>
+            <div class="container">
+                <form class="registration-form">
+                    <div class="form-group">
+                        <input type="text" class="form-input" placeholder="Your Full Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-input" placeholder="Your Email Address" required>
+                    </div>
+                    <button type="submit" class="cta-button">Join the Evolution</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="social-links">
+            <a href="#" aria-label="Twitter">X</a>
+            <a href="#" aria-label="Instagram">IG</a>
+            <a href="#" aria-label="LinkedIn">IN</a>
+        </div>
+        <p class="footer-text">
+            <span>Back to Base © 2025</span> — Where Quality Meets Evolution.
+        </p>
+    </footer>
+
+</body>
+</html>
